@@ -3,7 +3,7 @@ import React from "react";
 
 const Navibar = () => {
   return (
-    <header className="fixed w-full">
+    <header className="fixed top-0 w-full">
       <ul className="flex justify-around items-center h-[80px] bg-blue-500">
         <Link href={"/"} className="text-white">
           <li>홈</li>
