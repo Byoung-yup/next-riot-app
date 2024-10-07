@@ -1,5 +1,8 @@
+"use server";
+
 import Champion from "@/types/Champion";
 import ChampionDetail from "@/types/ChampionDetail";
+import Item from "@/types/Item";
 
 const getRecentVersion = async (): Promise<string> => {
   const versionRes = await fetch(
@@ -15,7 +18,12 @@ export const fetchChampions = async (): Promise<Champion[]> => {
   const recentVersion = await getRecentVersion();
 
   const championsRes = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion.json`
+    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion.json`,
+    {
+      next: {
+        revalidate: 86400,
+      },
+    }
   );
   const championJsonData = await championsRes.json();
 
@@ -45,4 +53,15 @@ export const fetchChampionDetail = async (
   };
 
   return _champion;
+};
+
+export const fetchItemList = async (): Promise<Item[]> => {
+  const recentVersion = await getRecentVersion();
+
+  const itemRes = await fetch(
+    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/item.json`
+  );
+  const itemJSONData = await itemRes.json();
+
+  return Object.values(itemJSONData.data);
 };
