@@ -33,6 +33,7 @@ export const fetchChampions = async (): Promise<Champion[]> => {
 export const fetchChampionDetail = async (
   id: string
 ): Promise<ChampionDetail> => {
+  // if (Math.random() < 0.5) throw new Error("테스트 에러");
   const recentVersion = await getRecentVersion();
 
   const championRes = await fetch(
