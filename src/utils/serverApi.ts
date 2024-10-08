@@ -38,7 +38,10 @@ export const fetchChampionDetail = async (
   const recentVersion = await getRecentVersion();
 
   const championRes = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion/${id}.json`
+    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/champion/${id}.json`,
+    {
+      cache: "no-store",
+    }
   );
 
   const championJsonData = await championRes.json();
@@ -62,7 +65,10 @@ export const fetchItemList = async (): Promise<Item[]> => {
   const recentVersion = await getRecentVersion();
 
   const itemRes = await fetch(
-    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/item.json`
+    `https://ddragon.leagueoflegends.com/cdn/${recentVersion}/data/ko_KR/item.json`,
+    {
+      cache: "force-cache",
+    }
   );
   const itemJSONData = await itemRes.json();
 
